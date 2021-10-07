@@ -6,7 +6,6 @@
 }
 
 <!DOCTYPE html>
-<!-- template from http://getbootstrap.com/getting-started -->
 
 <html lang="en">
 <head>
@@ -14,27 +13,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candidate Details</title>
-
-    <!-- CSS Includes -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-    <style type="text/css">
-
-        .field-validation-error {
-            color: #ff0000;
-        }
-    </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Candidates</h2>
+        <h2>Candidate Record</h2>
 
-        <p>
-            @Html.ActionLink("Create New", "Create")
+        <p class="btn btn-default">
+            @Html.ActionLink("Add New Candidate", "Create")
         </p>
-        <table class="table">
-            <tr>
+        <br />
+        <br />
+        <table class="table table-bordered">
+            <tr class="btn-primary">
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
