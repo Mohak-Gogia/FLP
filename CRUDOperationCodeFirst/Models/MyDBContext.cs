@@ -8,10 +8,10 @@ namespace CRUDOperationCodeFirst.Models
 {
     public class MyDBContext : DbContext
     {
-        public MyDBContext()
+        public MyDBContext() : base("SQLDatabase")
         {
-
+                
         }
         public DbSet<Candidate> Candidate { get; set; } 
     }
-}
+}   

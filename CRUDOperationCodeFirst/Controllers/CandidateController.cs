@@ -4,29 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CRUDOperationCodeFirst.Services;
 
 namespace CRUDOperationCodeFirst.Controllers
 {
     public class CandidateController : Controller
     {
-        private Models.MyDBContext _context;
-
-        public CandidateController()
-        {
-            _context = new Models.MyDBContext();
-        }
+        CandidateService service = new CandidateService();
 
         public ActionResult Index()
         {
-            var candidateList = _context.Candidate.ToList();
-            return View(candidateList);
+            return View(service.GetCandidateList());
         }
 
 
         public ViewResult Details(int id)
         {
-            Candidate candidate = _context.Candidate.Where(x => x.CandidateId == id).SingleOrDefault();
-            return View(candidate);
+            return View(service.GetCandidateList().Where(x => x.CandidateId == id).FirstOrDefault());
         }
 
 
@@ -41,8 +35,7 @@ namespace CRUDOperationCodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Candidate.Add(c);
-                _context.SaveChanges();
+                service.CreateCandidate(c); 
                 return RedirectToAction("Index");
             }
             else
@@ -54,18 +47,15 @@ namespace CRUDOperationCodeFirst.Controllers
 
         public ActionResult Edit(int id)
         {
-            Candidate c = _context.Candidate.Where(x => x.CandidateId == id).SingleOrDefault();
-            return View(c);
+            return View(service.GetCandidate(id));
         }
 
         [HttpPost]
         public ActionResult Edit(Candidate c)
         {
-            Candidate candidate = _context.Candidate.Where(x => x.CandidateId == c.CandidateId).SingleOrDefault();
             if (ModelState.IsValid)
             {
-                _context.Entry(candidate).CurrentValues.SetValues(c);
-                _context.SaveChanges();
+                service.UpdateCandidate(c);
                 return RedirectToAction("Index");
             }
             return View(c);
@@ -74,25 +64,22 @@ namespace CRUDOperationCodeFirst.Controllers
 
         public ActionResult Delete(int id)
         {
-            Candidate c = _context.Candidate.Find(id);
-            return View(c);
+            return View(service.GetCandidateList().Where(x => x.CandidateId == id).FirstOrDefault());
         }
 
         [HttpPost]
         public ActionResult Delete(int id, Candidate c)
         {
-            var candidate = _context.Candidate.Where(x => x.CandidateId == id).SingleOrDefault();
-            if (candidate != null)
+            try
             {
-                _context.Candidate.Remove(candidate);
-                _context.SaveChanges();
+                service.RemoveCandidate(id);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch
+            {
+                return View();
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
     }
 }

@@ -2,81 +2,140 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Candidate Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
-<div>
-    <h4>Candidate</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <style type="text/css">
+        body {
+            color: #566787;
+            background: #f5f5f5;
+            font-family: 'Varela Round', sans-serif;
+            font-size: 13px;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+        table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            table.table tr th:last-child {
+                width: 200px;
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+        .table tbody tr:hover td, .table tbody tr:hover th {
+            background-color: #eeeeea;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhnNum)
-        </dt>
+        table.table td a {
+            font-weight: bold;
+            color: #566787;
+            display: inline-block;
+            text-decoration: none;
+            outline: none !important;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.PhnNum)
-        </dd>
+            table.table td a:hover {
+                color: #2196F3;
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DOB)
-        </dt>
+        .hint-text {
+            float: left;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Candidate Information</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.DOB)
-        </dd>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UnivName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UnivName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PhnNum)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ClgName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PhnNum)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ClgName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DOB)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Branch)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DOB)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Branch)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CandidateId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UnivName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UnivName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ClgName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ClgName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Branch)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Branch)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CandidateId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
