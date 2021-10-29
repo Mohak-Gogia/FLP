@@ -7,121 +7,78 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CRUDOperationModelFirst.Models;
+using CRUDOperationModelFirst.Services;
 
 namespace CRUDOperationModelFirst.Controllers
 {
     public class CandidatesController : Controller
     {
-        private CandidateContainer db = new CandidateContainer();
+        CandidateService service = new CandidateService();
 
-        // GET: Candidates
         public ActionResult Index()
         {
-            return View(db.Candidates.ToList());
+            return View(service.GetCandidateList());
         }
 
-        // GET: Candidates/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Candidate candidate = db.Candidates.Find(id);
-            if (candidate == null)
-            {
-                return HttpNotFound();
-            }
-            return View(candidate);
+            return View(service.GetCandidateList().Where(x => x.CandidateId == id).FirstOrDefault());
         }
 
-        // GET: Candidates/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Candidate());
         }
 
-        // POST: Candidates/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CandidateId,Name,Email,PhnNum,DOB,Gender,UnivName,ClgName,Branch")] Candidate candidate)
         {
             if (ModelState.IsValid)
             {
-                db.Candidates.Add(candidate);
-                db.SaveChanges();
+
+                service.CreateCandidate(candidate);
                 return RedirectToAction("Index");
             }
 
             return View(candidate);
         }
 
-        // GET: Candidates/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Candidate candidate = db.Candidates.Find(id);
-            if (candidate == null)
-            {
-                return HttpNotFound();
-            }
-            return View(candidate);
+            return View(service.GetCandidate(id));
         }
 
-        // POST: Candidates/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CandidateId,Name,Email,PhnNum,DOB,Gender,UnivName,ClgName,Branch")] Candidate candidate)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(candidate).State = EntityState.Modified;
-                db.SaveChanges();
+                service.UpdateCandidate(candidate);
                 return RedirectToAction("Index");
             }
             return View(candidate);
         }
 
-        // GET: Candidates/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Candidate candidate = db.Candidates.Find(id);
-            if (candidate == null)
-            {
-                return HttpNotFound();
-            }
-            return View(candidate);
+            return View(service.GetCandidateList().Where(x => x.CandidateId == id).FirstOrDefault());
         }
 
-        // POST: Candidates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Candidate candidate = db.Candidates.Find(id);
-            db.Candidates.Remove(candidate);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            try
             {
-                db.Dispose();
+                service.RemoveCandidate(id);
+                return RedirectToAction("Index");
             }
-            base.Dispose(disposing);
+            catch
+            {
+                return View();
+            }
         }
     }
 }
