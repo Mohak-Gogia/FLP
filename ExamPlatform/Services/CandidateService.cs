@@ -6,8 +6,6 @@ using System.Web;
 
 namespace ExamPlatform.Services
 {
-
-    // Implementing Singleton Class
     public sealed class CandidateService
     {
         private IList<Candidate> candidateList = null;
@@ -31,7 +29,6 @@ namespace ExamPlatform.Services
 
         private void InitializeCandidateList()
         {
-            // Dummy data
             candidateList = new List<Candidate>{
                 new Candidate() { CandidateId = 2, Name = "Ravi", Email = "ravi@gmail.com" ,
                     PhnNum = "9998723190" , DOB = "12-09-1998" , Gender = "Male" ,
@@ -44,6 +41,7 @@ namespace ExamPlatform.Services
                 new Candidate() { CandidateId = 3, Name = "Harshit", Email = "harshit@gmail.com" ,
                     PhnNum = "9998722312" , DOB = "28-11-1999" , Gender = "Male" ,
                     UnivName = "GGSIPU" , ClgName = "HMR College" , Branch = "IT"}
+                    
             };
         }
 
@@ -58,28 +56,16 @@ namespace ExamPlatform.Services
             return candidateList.Where(x => x.CandidateId == id).FirstOrDefault();
         }
 
-       
+
         public void CreateCandidate(Candidate candidate)
         {
-
-            /*Candidate existingCandidate = candidateList.Where(x => x.Name == candidate.Name
-                                         && x.Email == candidate.Email && x.PhnNum == candidate.PhnNum && x.DOB == candidate.DOB
-                                         && x.Gender == candidate.Gender && x.UnivName == candidate.UnivName
-                                         && x.ClgName == candidate.ClgName && x.Branch == candidate.Branch).FirstOrDefault();*/
-            Candidate existingCandidate = null;
-            foreach (Candidate c in candidateList)
-            {
-                if (c == candidate)
-                {
-                    existingCandidate = candidate;
-                    break;
-                }
-            }
+            Candidate existingCandidate = candidateList.Where(x => x.Name == candidate.Name && x.Email == candidate.Email
+                                          && x.PhnNum == candidate.PhnNum && x.DOB == candidate.DOB).FirstOrDefault();
 
             if (existingCandidate == null)
             {
-                candidate.CandidateId = candidateList.Any() ? candidateList.Max(x => x.CandidateId)+1 : 1;
-                candidateList.Add(candidate);   
+                candidate.CandidateId = candidateList.Any() ? candidateList.Max(x => x.CandidateId) + 1 : 1;
+                candidateList.Add(candidate);
             }
             else
             {
