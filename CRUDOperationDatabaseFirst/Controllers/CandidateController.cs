@@ -1,4 +1,5 @@
 ﻿using CRUDOperationDatabaseFirst.Models;
+using CRUDOperationDatabaseFirst.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,26 +11,22 @@ namespace CRUDOperationDatabaseFirst.Controllers
 {
     public class CandidateController : Controller
     {
+        CandidateService service = new CandidateService();
 
-        CandidateDBEntities db = new CandidateDBEntities();
-
-        // GET: Candidate
         public ActionResult Index()
         {
-            var data = db.Candidates.ToList();
-            return View(data);
+            return View(service.GetCandidateList());
         }
 
         public ActionResult Details(int id)
         {
-            var record = db.Candidates.Where(model => model.CandidateId == id).FirstOrDefault();
-            return View(record);
+            return View(service.GetCandidateList().Where(x => x.CandidateId == id).FirstOrDefault());
         }
 
 
         public ActionResult Create()
         {
-            return View();
+            return View(new Candidate());
         }
 
         [ValidateAntiForgeryToken()]
@@ -38,8 +35,7 @@ namespace CRUDOperationDatabaseFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Candidates.Add(c);
-                db.SaveChanges();
+                service.CreateCandidate(c);
                 return RedirectToAction("Index");
             }
 
@@ -49,8 +45,7 @@ namespace CRUDOperationDatabaseFirst.Controllers
 
         public ActionResult Edit(int id)
         {
-            var record = db.Candidates.Where(model => model.CandidateId == id).FirstOrDefault();
-            return View(record);
+            return View(service.GetCandidate(id));
         }
 
 
@@ -59,8 +54,8 @@ namespace CRUDOperationDatabaseFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(c).State = EntityState.Modified;
-                db.SaveChanges();
+                service.UpdateCandidate(c);
+              
                 return RedirectToAction("Index");
             }
             return View(c);
@@ -69,22 +64,23 @@ namespace CRUDOperationDatabaseFirst.Controllers
 
         public ActionResult Delete(int id)
         {
-            var deletedRecord = db.Candidates.Where(model => model.CandidateId == id).FirstOrDefault();
-            return View(deletedRecord);
+            return View(service.GetCandidateList().Where(x => x.CandidateId == id).FirstOrDefault());
         }
 
 
         [HttpPost]
         public ActionResult Delete(int id,FormCollection collection)
         {
-            var deletedRecord = db.Candidates.Where(model => model.CandidateId == id).FirstOrDefault();
-            db.Candidates.Remove(deletedRecord);
-            int resp = db.SaveChanges();
-            if(resp > 0)
+            try
             {
+                service.RemoveCandidate(id);
                 return RedirectToAction("Index");
             }
-            return View();
+            catch
+            {
+                return View();
+            }
+            
         }
 
     }
