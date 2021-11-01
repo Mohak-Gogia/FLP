@@ -80,3 +80,9 @@ C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCod
 C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\obj\Debug\CRUDOperationCodeFirst.pdb
 C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\obj\Debug\CRUDOperationCodeFirst.Migrations.Candidate.resources
 C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\obj\Debug\CRUDOperationCodeFirst.csproj.GenerateResource.cache
+C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\bin\System.Net.Http.Formatting.dll
+C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\bin\System.Web.Http.dll
+C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\bin\System.Web.Http.WebHost.dll
+C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\bin\System.Net.Http.Formatting.xml
+C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\bin\System.Web.Http.xml
+C:\Users\mohak.gogia\source\repos\Entity\CRUDOperationCodeFirst\CRUDOperationCodeFirst\bin\System.Web.Http.WebHost.xml

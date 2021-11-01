@@ -29,8 +29,15 @@ namespace CRUDOperationCodeFirst.Services
 
         public void CreateCandidate(Candidate c)
         {
-            _context.Candidate.Add(c);
-            _context.SaveChanges();
+            if (c != null)
+            {
+                _context.Candidate.Add(c);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Invalid Candidate");
+            }
         }
 
         public void UpdateCandidate(Candidate c)
